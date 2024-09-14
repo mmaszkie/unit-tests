@@ -14,7 +14,7 @@ class StringUtilsTests {
     }
 
     @Test
-    void shouldCorrectlyConcatenateListOfStrings() {
+    void shouldConcatenateStringsWhenGivenListOfStrings() {
         // given
         List<String> stringsToConcatenate = List.of("a", "b", "c");
 
@@ -26,8 +26,3 @@ class StringUtilsTests {
     }
 
 }
-
-
-
-
-
