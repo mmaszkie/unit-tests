@@ -113,4 +113,6 @@ class CitiesSearchTests {
         assertEquals(expectedCities, foundCities);
     }
 
+    // przepisać kod searcha na regexa i sprawdzić, że testy przechodzą
+    // shopping cart cata - https://www.codurance.com/katas/shopping-cart-kata
 }
