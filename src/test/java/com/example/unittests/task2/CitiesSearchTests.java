@@ -35,4 +35,16 @@ class CitiesSearchTests {
         assertEquals(EMPTY_SET, foundCities);
     }
 
+    @Test
+    public void shouldFindCitiesThatStartWithInputText() {
+        // given
+        String inputText = "Va";
+
+        // when
+        Set<String> foundCities = citiesSearch.search(inputText);
+
+        // then
+        assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
+    }
+
 }
