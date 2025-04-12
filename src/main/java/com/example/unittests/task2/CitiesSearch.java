@@ -26,6 +26,10 @@ class CitiesSearch {
     );
 
     Set<String> search(String inputText) {
+        if ("*".equals(inputText)) {
+            return AVAILABLE_CITIES;
+        }
+
         if (inputText == null || inputText.length() < 2) {
             return Set.of();
         }
