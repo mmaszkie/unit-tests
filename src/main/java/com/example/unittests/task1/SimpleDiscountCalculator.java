@@ -3,6 +3,7 @@ package com.example.unittests.task1;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static com.example.unittests.task1.DiscountCalculator.Discount.HIGH;
 import static com.example.unittests.task1.DiscountCalculator.Discount.NONE;
@@ -18,14 +19,14 @@ class SimpleDiscountCalculator implements DiscountCalculator {
 
     @Override
     public Discount calculate(BigDecimal amount) {
-        validateAmount(amount);
-        return toDiscount(amount);
+        return Optional.ofNullable(amount)
+                .filter(this::isGreaterThanOrEqualToZero)
+                .map(this::toDiscount)
+                .orElseThrow(this::illegalAmountException);
     }
 
-    private void validateAmount(BigDecimal amount) {
-        if (amount == null || amount.compareTo(ZERO) < 0) {
-            throw new RuntimeException("Amount value must be greater than or equal to zero");
-        }
+    private boolean isGreaterThanOrEqualToZero(BigDecimal value) {
+        return value.compareTo(ZERO) >= 0;
     }
 
     private Discount toDiscount(BigDecimal amount) {
@@ -44,6 +45,10 @@ class SimpleDiscountCalculator implements DiscountCalculator {
 
     private boolean amountQualifiesForHighDiscount(BigDecimal amount) {
         return amount.compareTo(HIGH_DISCOUNT_AMOUNT_LEVEL) >= 0;
+    }
+
+    private RuntimeException illegalAmountException() {
+        return new RuntimeException("Amount value must be greater than or equal to zero");
     }
 
 }
