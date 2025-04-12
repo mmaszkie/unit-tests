@@ -2,7 +2,7 @@ package com.example.unittests.task1;
 
 import java.math.BigDecimal;
 
-public interface DiscountCalculator {
+interface DiscountCalculator {
 
     Discount calculate(BigDecimal amount);
 
