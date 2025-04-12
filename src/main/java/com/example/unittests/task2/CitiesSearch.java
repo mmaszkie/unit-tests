@@ -1,8 +1,8 @@
 package com.example.unittests.task2;
 
 import java.util.Set;
-
-import static java.util.stream.Collectors.toSet;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 class CitiesSearch {
 
@@ -34,9 +34,12 @@ class CitiesSearch {
             return Set.of();
         }
 
+        String regex = ".*" + Pattern.quote(inputText) + ".*";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
         return AVAILABLE_CITIES.stream()
-                .filter(city -> city.toLowerCase().contains(inputText.toLowerCase()))
-                .collect(toSet());
+                .filter(city -> pattern.matcher(city).matches())
+                .collect(Collectors.toSet());
     }
 
 }
