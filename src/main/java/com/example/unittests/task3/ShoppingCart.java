@@ -1,12 +1,20 @@
 package com.example.unittests.task3;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
+
+import static java.math.BigDecimal.ZERO;
 
 class ShoppingCart {
 
     ShoppingCartList getShoppingCart() {
-        throw new RuntimeException("Not implemented yet");
+        return new ShoppingCartList(
+                List.of(),
+                null,
+                0,
+                ZERO
+        );
     }
 
     private static final Map<String, Product> PRODUCTS_DATABASE = Map.of(
