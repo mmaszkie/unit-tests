@@ -48,6 +48,30 @@ class CitiesSearchTests {
     }
 
     @Test
+    public void shouldFindCitiesThatContainInputText() {
+        // given
+        String inputText = "ape";
+
+        // when
+        Set<String> foundCities = citiesSearch.search(inputText);
+
+        // then
+        assertEquals(Set.of("Budapest"), foundCities);
+    }
+
+    @Test
+    public void shouldFindCitiesThatEndWithInputText() {
+        // given
+        String inputText = "rdam";
+
+        // when
+        Set<String> foundCities = citiesSearch.search(inputText);
+
+        // then
+        assertEquals(Set.of("Rotterdam", "Amsterdam"), foundCities);
+    }
+
+    @Test
     public void shouldFindCitiesIgnoringCaseDifferences() {
         // given
         String inputText = "vA";
