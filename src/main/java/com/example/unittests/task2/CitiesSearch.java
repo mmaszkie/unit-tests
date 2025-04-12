@@ -31,7 +31,7 @@ class CitiesSearch {
         }
 
         return AVAILABLE_CITIES.stream()
-                .filter(city -> city.toLowerCase().startsWith(inputText.toLowerCase()))
+                .filter(city -> city.toLowerCase().contains(inputText.toLowerCase()))
                 .collect(toSet());
     }
 
