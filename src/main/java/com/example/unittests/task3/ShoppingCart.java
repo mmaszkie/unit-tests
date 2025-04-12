@@ -17,6 +17,10 @@ class ShoppingCart {
         );
     }
 
+    void addProduct(String productName) {
+        throw new RuntimeException("Not implemented yet");
+    }
+
     private static final Map<String, Product> PRODUCTS_DATABASE = Map.of(
             "Iceberg",
             new Product(
