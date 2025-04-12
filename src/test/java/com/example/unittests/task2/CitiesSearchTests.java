@@ -83,4 +83,34 @@ class CitiesSearchTests {
         assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
     }
 
+    @Test
+    public void shouldFindAllCitiesWhenInputTextIsAsterisk() {
+        // given
+        String inputText = "*";
+        Set<String> expectedCities = Set.of(
+                "Paris",
+                "Budapest",
+                "Skopje",
+                "Rotterdam",
+                "Valencia",
+                "Vancouver",
+                "Amsterdam",
+                "Vienna",
+                "Sydney",
+                "New York City",
+                "London",
+                "Bangkok",
+                "Hong Kong",
+                "Dubai",
+                "Rome",
+                "Istanbul"
+        );
+
+        // when
+        Set<String> foundCities = citiesSearch.search(inputText);
+
+        // then
+        assertEquals(expectedCities, foundCities);
+    }
+
 }
