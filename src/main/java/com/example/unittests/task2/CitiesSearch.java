@@ -2,6 +2,8 @@ package com.example.unittests.task2;
 
 import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
+
 class CitiesSearch {
 
     private static final Set<String> AVAILABLE_CITIES = Set.of(
@@ -28,7 +30,9 @@ class CitiesSearch {
             return Set.of();
         }
 
-        return AVAILABLE_CITIES;
+        return AVAILABLE_CITIES.stream()
+                .filter(city -> city.startsWith(inputText))
+                .collect(toSet());
     }
 
 }
