@@ -47,4 +47,16 @@ class CitiesSearchTests {
         assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
     }
 
+    @Test
+    public void shouldFindCitiesIgnoringCaseDifferences() {
+        // given
+        String inputText = "vA";
+
+        // when
+        Set<String> foundCities = citiesSearch.search(inputText);
+
+        // then
+        assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
+    }
+
 }
