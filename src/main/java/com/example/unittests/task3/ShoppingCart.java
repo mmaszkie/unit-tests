@@ -1,6 +1,7 @@
 package com.example.unittests.task3;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,17 +9,45 @@ import static java.math.BigDecimal.ZERO;
 
 class ShoppingCart {
 
+    private final Map<String, Integer> products = new HashMap<>();
+
     ShoppingCartList getShoppingCart() {
+        var items = createItemsList();
+        var totalPrice = calculateTotalPrice(items);
         return new ShoppingCartList(
-                List.of(),
+                items,
                 null,
-                0,
-                ZERO
+                items.size(),
+                totalPrice
         );
     }
 
     void addProduct(String productName) {
-        throw new RuntimeException("Not implemented yet");
+        var quantity = products.getOrDefault(productName, 0);
+        products.put(productName, quantity + 1);
+    }
+
+    private List<Item> createItemsList() {
+        return products.entrySet().stream()
+                .map(ShoppingCart::createItem)
+                .toList();
+    }
+
+    private static Item createItem(Map.Entry<String, Integer> entry) {
+        var productName = entry.getKey();
+        var finalPrice = PRODUCTS_DATABASE.get(productName).finalPrice();
+        var quantity = entry.getValue();
+        return new Item(
+                productName,
+                finalPrice,
+                quantity
+        );
+    }
+
+    private BigDecimal calculateTotalPrice(List<Item> items) {
+        return items.stream()
+                .map(Item::priceWithVAT)
+                .reduce(ZERO, BigDecimal::add);
     }
 
     private static final Map<String, Product> PRODUCTS_DATABASE = Map.of(
