@@ -24,7 +24,11 @@ class CitiesSearch {
     );
 
     Set<String> search(String inputText) {
-        throw new RuntimeException("Not implemented yet");
+        if (inputText == null || inputText.length() < 2) {
+            return Set.of();
+        }
+
+        return AVAILABLE_CITIES;
     }
 
 }
