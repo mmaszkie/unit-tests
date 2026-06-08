@@ -1,5 +1,7 @@
 package com.example.unittests.task2;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -17,13 +19,18 @@ class CitiesSearch {
             return List.of();
         }
 
-        String[] queryTokens = query.toLowerCase().split("\\s+");
+        String normalizedQuery = normalizeText(query);
+        String[] queryTokens = normalizedQuery.split("\\s+");
 
         return availableCities.stream()
-                .filter(city -> Arrays.stream(queryTokens).allMatch(city.toLowerCase()::contains))
+                .filter(city -> Arrays.stream(queryTokens).allMatch(normalizeText(city)::contains))
                 .sorted(String::compareToIgnoreCase)
                 .limit(3)
                 .toList();
+    }
+
+    private String normalizeText(String text) {
+        return StringUtils.stripAccents(text.trim()).toLowerCase();
     }
 
 }
