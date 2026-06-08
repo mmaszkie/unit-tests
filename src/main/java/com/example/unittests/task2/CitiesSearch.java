@@ -13,7 +13,7 @@ class CitiesSearch {
 
     List<String> search(String query) {
         return availableCities.stream()
-                .filter(city -> city.contains(query))
+                .filter(city -> city.toLowerCase().contains(query.toLowerCase()))
                 .toList();
     }
 
