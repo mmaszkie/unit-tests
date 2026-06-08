@@ -97,4 +97,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Los Angeles"), citiesFound);
     }
 
+    @Test
+    public void shouldIgnoreNationalCharacters() {
+        // given
+        String query = "wroclaw";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Wrocław"), citiesFound);
+    }
+
 }
