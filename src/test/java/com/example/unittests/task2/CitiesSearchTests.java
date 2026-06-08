@@ -109,4 +109,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Wrocław"), citiesFound);
     }
 
+    @Test
+    public void shouldApplyRelevanceScoring() {
+        // given
+        String query = "za";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Zakopane", "Warszawa"), citiesFound);
+    }
+
 }
