@@ -1,5 +1,6 @@
 package com.example.unittests.task2;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -16,8 +17,10 @@ class CitiesSearch {
             return List.of();
         }
 
+        String[] queryTokens = query.toLowerCase().split("\\s+");
+
         return availableCities.stream()
-                .filter(city -> city.toLowerCase().contains(query.toLowerCase()))
+                .filter(city -> Arrays.stream(queryTokens).allMatch(city.toLowerCase()::contains))
                 .sorted(String::compareToIgnoreCase)
                 .limit(3)
                 .toList();
