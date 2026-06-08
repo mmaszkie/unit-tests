@@ -12,6 +12,10 @@ class CitiesSearch {
     }
 
     List<String> search(String query) {
+        if (query == null || query.trim().length() < 2) {
+            return List.of();
+        }
+
         return availableCities.stream()
                 .filter(city -> city.toLowerCase().contains(query.toLowerCase()))
                 .toList();

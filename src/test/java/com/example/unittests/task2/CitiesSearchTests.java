@@ -52,7 +52,7 @@ class CitiesSearchTests {
     @Test
     public void shouldValidateQueryLength() {
         // given
-        String query = "x";
+        String query = "a";
 
         // when
         List<String> citiesFound = citiesSearch.search(query);
@@ -60,5 +60,5 @@ class CitiesSearchTests {
         // then
         assertTrue(citiesFound.isEmpty());
     }
-    
+
 }

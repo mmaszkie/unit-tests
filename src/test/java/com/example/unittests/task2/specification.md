@@ -1,6 +1,6 @@
-# 📋 Lab Manual: Intelligent City Search (TDD)
+# 📋 Lab Manual: Intelligent city search (TDD)
 
-The specification below contains 10 steps for developing the `CitiesSearch` system. Following the TDD methodology, for each step you should first create a test case in your test class (**RED** phase), then implement the minimum logic required to pass the test (**GREEN** phase), and optionally clean up the code (**REFACTOR** phase).
+The specification below contains different steps for developing the `CitiesSearch` system. Following the TDD methodology, for each step you should first create a test case in your test class (**RED** phase), then implement the minimum logic required to pass the test (**GREEN** phase), and optionally clean up the code (**REFACTOR** phase).
 
 **Available cities (in-memory database):**
 *Warszawa, Wrocław, Kraków, Gdynia, Nowy Jork, Los Angeles, San Francisco, Zakopane, Ankara, Santiago*
@@ -19,7 +19,7 @@ The specification below contains 10 steps for developing the `CitiesSearch` syst
 
 ### Step 3: Query length validation (fail-fast)
 * **Description:** For performance reasons, the search engine must not process overly short queries. If a query is too short, the system terminates immediately.
-* **Acceptance Criteria:** If the query has **fewer than 2 characters** (e.g., `"x"`), the system must immediately return an empty list.
+* **Acceptance Criteria:** If the query has **fewer than 2 characters** (e.g., `"a"`), the system must immediately return an empty list.
 * **Implementation Tips:** Add defensive validation at method entry.
 
 ### Step 4: Alphabetical sorting
