@@ -121,4 +121,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Zakopane", "Warszawa"), citiesFound);
     }
 
+    @Test
+    public void shouldUseFuzzySearchFallback() {
+        // given
+        String query = "Warszwa";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Warszawa"), citiesFound);
+    }
+
 }
