@@ -73,4 +73,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Ankara", "Warszawa"), citiesFound);
     }
 
+    @Test
+    public void shouldEnforceLimitingResults() {
+        // given
+        String query = "an";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(3, citiesFound.size());
+    }
+
 }
