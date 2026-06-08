@@ -85,4 +85,16 @@ class CitiesSearchTests {
         assertEquals(3, citiesFound.size());
     }
 
+    @Test
+    public void shouldHandleMultiWordSupport() {
+        // given
+        String query = "Angeles Los";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Los Angeles"), citiesFound);
+    }
+
 }
