@@ -61,4 +61,16 @@ class CitiesSearchTests {
         assertTrue(citiesFound.isEmpty());
     }
 
+    @Test
+    public void shouldApplyAlphabeticalSorting() {
+        // given
+        String query = "ar";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Ankara", "Warszawa"), citiesFound);
+    }
+
 }
