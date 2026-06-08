@@ -36,4 +36,16 @@ class CitiesSearchTests {
         assertEquals(List.of("San Francisco"), citiesFound);
     }
 
+    @Test
+    public void shouldSupportCaseInsensitivity() {
+        // given
+        String query = "wro";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Wrocław"), citiesFound);
+    }
+
 }
