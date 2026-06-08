@@ -18,6 +18,7 @@ class CitiesSearch {
 
         return availableCities.stream()
                 .filter(city -> city.toLowerCase().contains(query.toLowerCase()))
+                .sorted(String::compareToIgnoreCase)
                 .toList();
     }
 
