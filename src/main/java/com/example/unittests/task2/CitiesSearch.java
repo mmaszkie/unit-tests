@@ -1,6 +1,7 @@
 package com.example.unittests.task2;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,14 +10,18 @@ import java.util.Set;
 class CitiesSearch {
 
     private static final int MINIMUM_QUERY_LENGTH = 2;
+    private static final int FUZZY_SEARCH_MINIMUM_QUERY_LENGTH = 4;
+    private static final int MAXIMUM_FUZZY_DISTANCE = 1;
     private static final int MAXIMUM_RESULTS = 3;
     private static final int HIGH_RELEVANCE_SCORE = 50;
     private static final int LOW_RELEVANCE_SCORE = 10;
 
     private final Set<String> availableCities;
+    private final LevenshteinDistance levenshteinDistance;
 
     CitiesSearch(Set<String> availableCities) {
         this.availableCities = availableCities;
+        this.levenshteinDistance = LevenshteinDistance.getDefaultInstance();
     }
 
     List<String> search(String query) {
@@ -25,7 +30,13 @@ class CitiesSearch {
         }
 
         String normalizedQuery = normalizeText(query);
-        return performExactSearch(normalizedQuery);
+        List<String> exactMatches = performExactSearch(normalizedQuery);
+
+        if (exactMatches.isEmpty() && shouldAttemptFuzzySearch(query)) {
+            return performFuzzySearch(normalizedQuery);
+        }
+
+        return exactMatches;
     }
 
     private boolean isValidQuery(String query) {
@@ -38,6 +49,21 @@ class CitiesSearch {
                 .sorted((firstCity, secondCity) -> sortByRelevanceAndName(firstCity, secondCity, normalizedQuery))
                 .limit(MAXIMUM_RESULTS)
                 .toList();
+    }
+
+    private boolean shouldAttemptFuzzySearch(String query) {
+        return query.trim().length() >= FUZZY_SEARCH_MINIMUM_QUERY_LENGTH;
+    }
+
+    private List<String> performFuzzySearch(String normalizedQuery) {
+        return availableCities.stream()
+                .filter(city -> isFuzzyMatch(normalizeText(city), normalizedQuery))
+                .limit(MAXIMUM_RESULTS)
+                .toList();
+    }
+
+    private boolean isFuzzyMatch(String normalizedCity, String normalizedQuery) {
+        return levenshteinDistance.apply(normalizedCity, normalizedQuery) <= MAXIMUM_FUZZY_DISTANCE;
     }
 
     private boolean containsAllQueryTokens(String normalizedCity, String normalizedQuery) {
