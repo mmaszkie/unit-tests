@@ -52,13 +52,25 @@ class CitiesSearchTests {
     @Test
     public void shouldValidateQueryLength() {
         // given
-        String query = "x";
+        String query = "a";
 
         // when
         List<String> citiesFound = citiesSearch.search(query);
 
         // then
         assertTrue(citiesFound.isEmpty());
+    }
+
+    @Test
+    public void shouldApplyAlphabeticalSorting() {
+        // given
+        String query = "ar";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Ankara", "Warszawa"), citiesFound);
     }
 
 }
