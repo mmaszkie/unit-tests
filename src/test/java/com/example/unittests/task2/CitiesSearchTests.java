@@ -133,4 +133,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Warszawa"), citiesFound);
     }
 
+    @Test
+    public void shouldSupportExclusionFilter() {
+        // given
+        String query = "an -san";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(List.of("Ankara", "Los Angeles", "Zakopane"), citiesFound);
+    }
+
 }
