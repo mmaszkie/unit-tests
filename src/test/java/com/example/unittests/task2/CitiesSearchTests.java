@@ -52,7 +52,7 @@ class CitiesSearchTests {
     @Test
     public void shouldValidateQueryLength() {
         // given
-        String query = "x";
+        String query = "a";
 
         // when
         List<String> citiesFound = citiesSearch.search(query);
@@ -71,6 +71,18 @@ class CitiesSearchTests {
 
         // then
         assertEquals(List.of("Ankara", "Warszawa"), citiesFound);
+    }
+
+    @Test
+    public void shouldEnforceLimitingResults() {
+        // given
+        String query = "an";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertEquals(3, citiesFound.size());
     }
 
 }
