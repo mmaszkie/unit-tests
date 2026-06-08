@@ -24,7 +24,15 @@ class CitiesSearch {
 
         return availableCities.stream()
                 .filter(city -> Arrays.stream(queryTokens).allMatch(normalizeText(city)::contains))
-                .sorted(String::compareToIgnoreCase)
+                .sorted((firstCity, secondCity) -> {
+                    int firstCityScore = normalizeText(firstCity).startsWith(normalizedQuery) ? 50 : 10;
+                    int secondCityScore = normalizeText(secondCity).startsWith(normalizedQuery) ? 50 : 10;
+
+                    if (firstCityScore != secondCityScore) {
+                        return Integer.compare(secondCityScore, firstCityScore);
+                    }
+                    return firstCity.compareToIgnoreCase(secondCity);
+                })
                 .limit(3)
                 .toList();
     }
