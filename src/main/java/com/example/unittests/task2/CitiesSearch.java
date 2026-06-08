@@ -15,6 +15,7 @@ class CitiesSearch {
     private static final int MAXIMUM_RESULTS = 3;
     private static final int HIGH_RELEVANCE_SCORE = 50;
     private static final int LOW_RELEVANCE_SCORE = 10;
+    private static final String EXCLUSION_TOKEN_PREFIX = "-";
 
     private final Set<String> availableCities;
     private final LevenshteinDistance levenshteinDistance;
@@ -68,7 +69,20 @@ class CitiesSearch {
 
     private boolean containsAllQueryTokens(String normalizedCity, String normalizedQuery) {
         String[] queryTokens = normalizedQuery.split("\\s+");
-        return Arrays.stream(queryTokens).allMatch(normalizedCity::contains);
+
+        List<String> inclusionTokens = Arrays.stream(queryTokens)
+                .filter(token -> !token.startsWith(EXCLUSION_TOKEN_PREFIX))
+                .toList();
+
+        List<String> exclusionTokens = Arrays.stream(queryTokens)
+                .filter(token -> token.startsWith(EXCLUSION_TOKEN_PREFIX) && token.length() > 1)
+                .map(token -> token.substring(1))
+                .toList();
+
+        boolean hasAllInclusionTokens = inclusionTokens.stream().allMatch(normalizedCity::contains);
+        boolean hasNoExclusionTokens = exclusionTokens.stream().noneMatch(normalizedCity::contains);
+
+        return hasAllInclusionTokens && hasNoExclusionTokens;
     }
 
     private int sortByRelevanceAndName(String firstCity, String secondCity, String normalizedQuery) {
