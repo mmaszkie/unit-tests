@@ -2,85 +2,38 @@ package com.example.unittests.task2;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
-import static java.util.Collections.EMPTY_SET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CitiesSearchTests {
 
-    private final CitiesSearch citiesSearch = new CitiesSearch();
+    private static final Set<String> AVAILABLE_CITIES = Set.of(
+            "Warszawa",
+            "Wrocław",
+            "Kraków",
+            "Gdynia",
+            "Nowy Jork",
+            "Los Angeles",
+            "San Francisco",
+            "Zakopane",
+            "Ankara",
+            "Santiago"
+    );
+
+    private final CitiesSearch citiesSearch = new CitiesSearch(AVAILABLE_CITIES);
 
     @Test
-    public void shouldNotFindAnyCityWhenInputTextIsNull() {
+    public void shouldPerformSubstringMatch() {
         // given
-        String inputText = null;
+        String query = "Fran";
 
         // when
-        Set<String> foundCities = citiesSearch.search(inputText);
+        List<String> citiesFound = citiesSearch.search(query);
 
         // then
-        assertEquals(EMPTY_SET, foundCities);
-    }
-
-    @Test
-    public void shouldNotFindAnyCityWhenInputTextIsTooShort() {
-        // given
-        String inputText = "B";
-
-        // when
-        Set<String> foundCities = citiesSearch.search(inputText);
-
-        // then
-        assertEquals(EMPTY_SET, foundCities);
-    }
-
-    @Test
-    public void shouldFindCitiesThatStartWithInputText() {
-        // given
-        String inputText = "Va";
-
-        // when
-        Set<String> foundCities = citiesSearch.search(inputText);
-
-        // then
-        assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
-    }
-
-    @Test
-    public void shouldFindCitiesThatContainInputText() {
-        // given
-        String inputText = "ape";
-
-        // when
-        Set<String> foundCities = citiesSearch.search(inputText);
-
-        // then
-        assertEquals(Set.of("Budapest"), foundCities);
-    }
-
-    @Test
-    public void shouldFindCitiesThatEndWithInputText() {
-        // given
-        String inputText = "rdam";
-
-        // when
-        Set<String> foundCities = citiesSearch.search(inputText);
-
-        // then
-        assertEquals(Set.of("Rotterdam", "Amsterdam"), foundCities);
-    }
-
-    @Test
-    public void shouldFindCitiesIgnoringCaseDifferences() {
-        // given
-        String inputText = "vA";
-
-        // when
-        Set<String> foundCities = citiesSearch.search(inputText);
-
-        // then
-        assertEquals(Set.of("Vancouver", "Valencia"), foundCities);
+        assertEquals(List.of("San Francisco"), citiesFound);
     }
 
 }
