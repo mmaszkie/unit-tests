@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CitiesSearchTests {
 
@@ -48,4 +49,16 @@ class CitiesSearchTests {
         assertEquals(List.of("Wrocław"), citiesFound);
     }
 
+    @Test
+    public void shouldValidateQueryLength() {
+        // given
+        String query = "a";
+
+        // when
+        List<String> citiesFound = citiesSearch.search(query);
+
+        // then
+        assertTrue(citiesFound.isEmpty());
+    }
+    
 }
