@@ -60,5 +60,5 @@ class CitiesSearchTests {
         // then
         assertTrue(citiesFound.isEmpty());
     }
-    
+
 }
